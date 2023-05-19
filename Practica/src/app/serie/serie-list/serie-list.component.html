@@ -1,0 +1,43 @@
+<!-- Grilla de Bootstrap -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!-- Tabla con listado de series -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Channel</th>
+            <th scope="col">Seasons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Necesita atributo series en serie-list.component.ts -->
+          <tr *ngFor="let serie of series" (click)="selectSerie(serie)">
+            <td>
+              <b>{{ serie.id }}</b>
+            </td>
+            <td>
+              <a href="{{ serie.webpage }}" target="_blank">{{ serie.name }}</a>
+            </td>
+            <td>{{ serie.channel }}</td>
+            <td>{{ serie.seasons }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>&nbsp; Seasons average: {{ avrg }}</p>
+      <script type="module" src="./scripts/serie.js"></script>
+    </div>
+
+    <div class="col">
+      <div *ngIf="selected; else elseBlock">
+        <!-- Necesita atributo selectedSerie en serie-list y serie en serie-detail -->
+        <app-serie-detail [serieDetail]="selectedSerie"></app-serie-detail>
+      </div>
+      <ng-template #elseBlock
+        ><app-serie-detail [serieDetail]="series[0]"></app-serie-detail
+      ></ng-template>
+    </div>
+  </div>
+</div>
